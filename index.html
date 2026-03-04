@@ -68,18 +68,32 @@
        ============================================ */
     .nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-      background: rgba(27, 59, 45, 0.95);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(197, 164, 73, 0.15);
-      transition: background 0.3s;
+      background: rgba(27, 59, 45, 0.4);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-bottom: 1px solid transparent;
+      transition: background 0.4s, border-color 0.4s, box-shadow 0.4s;
+    }
+    .nav--scrolled {
+      background: rgba(27, 59, 45, 0.97);
+      border-bottom-color: rgba(197, 164, 73, 0.15);
+      box-shadow: 0 2px 20px rgba(0,0,0,0.15);
     }
     .nav__inner {
       max-width: 1200px; margin: 0 auto;
       display: flex; align-items: center; justify-content: space-between;
       padding: 0.7rem 2rem;
     }
-    .nav__logo { height: 45px; width: auto; }
+    .nav__logo {
+      height: 45px; width: auto;
+      opacity: 0; transform: translateY(-8px);
+      transition: opacity 0.4s, transform 0.4s;
+      pointer-events: none;
+    }
+    .nav--scrolled .nav__logo {
+      opacity: 1; transform: translateY(0);
+      pointer-events: auto;
+    }
     .nav__links { list-style: none; display: flex; gap: 2.5rem; }
     .nav__links a {
       color: var(--cream);
@@ -882,5 +896,17 @@
   </div>
 </section>
 
+<script>
+(function() {
+  var nav = document.querySelector('.nav');
+  var heroLogo = document.querySelector('.hero__logo');
+  function onScroll() {
+    var rect = heroLogo.getBoundingClientRect();
+    nav.classList.toggle('nav--scrolled', rect.bottom < 0);
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+</script>
 </body>
 </html>
