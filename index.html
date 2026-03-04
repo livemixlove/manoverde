@@ -284,10 +284,10 @@
     }
     .about-images img:first-child {
       grid-column: 1 / -1;
-      height: 320px;
+      aspect-ratio: 16 / 9;
     }
     .about-images img:nth-child(2),
-    .about-images img:nth-child(3) { height: 180px; }
+    .about-images img:nth-child(3) { aspect-ratio: 4 / 3; }
     .about-text h2 { color: var(--green-dark); }
     .about-text p { margin-bottom: 1rem; font-size: 1.05rem; }
     .about-text p:first-of-type { font-weight: 600; color: var(--text-dark); }
@@ -330,10 +330,10 @@
       object-fit: cover;
     }
     .hacemos-photos img:first-child {
-      grid-column: 1 / -1; height: 260px;
+      grid-column: 1 / -1; aspect-ratio: 16 / 9;
     }
     .hacemos-photos img:nth-child(2),
-    .hacemos-photos img:nth-child(3) { height: 180px; }
+    .hacemos-photos img:nth-child(3) { aspect-ratio: 4 / 3; }
     .tagline-bar {
       margin-top: 3rem;
       padding: 2rem 2.5rem;
@@ -427,7 +427,7 @@
       gap: 1rem; margin-top: 3rem;
     }
     .services-gallery img {
-      width: 100%; height: 250px;
+      width: 100%; aspect-ratio: 4 / 3;
       object-fit: cover; border-radius: 8px;
     }
 
@@ -572,24 +572,20 @@
       .contacto-grid { grid-template-columns: 1fr; }
       .about-grid { gap: 2rem; }
       .about-images { order: -1; }
-      .about-images img:first-child { height: 250px; }
+      .about-images img:first-child { aspect-ratio: 16 / 10; }
       .benefits-list { grid-template-columns: 1fr; }
       .benefits-block { padding: 2.5rem 2rem; }
       .services-gallery { grid-template-columns: 1fr; }
-      .services-gallery img { height: 220px; }
+      .services-gallery img { aspect-ratio: 3 / 2; }
       .section { padding: 5rem 1.5rem; }
-      .hero__content { padding: 5rem 1.5rem 3rem; }
+      .hero__content { padding: 6rem 1.5rem 3rem; }
       .hero__logo { height: 180px; }
       .instagram-gallery__grid { grid-template-columns: repeat(3, 1fr); }
       .form-row { grid-template-columns: 1fr; }
     }
     @media (max-width: 600px) {
-      .about-images img:first-child { height: 200px; }
-      .about-images img:nth-child(2),
-      .about-images img:nth-child(3) { height: 140px; }
-      .hacemos-photos img:first-child { height: 200px; }
-      .hacemos-photos img:nth-child(2),
-      .hacemos-photos img:nth-child(3) { height: 140px; }
+      .about-images img:first-child { aspect-ratio: 16 / 10; }
+      .hacemos-photos img:first-child { aspect-ratio: 16 / 10; }
       .services-grid { grid-template-columns: 1fr; }
       .hero__title { font-size: 2.4rem; }
       .hero__logo { height: 140px; }
