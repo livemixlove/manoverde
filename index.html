@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mano Verde — Decoración Verde con Propósito</title>
+  <meta name="description" content="Diseño, ejecución y mantenimiento de espacios verdes. Transformamos tus espacios con naturaleza viva, estética y profesionalismo.">
+  <link rel="icon" type="image/png" href="images/web/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;1,400;1,500&family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    /* ============================================
+       MANO VERDE — Design System
+       Colors extracted from press PDF
+       ============================================ */
+    :root {
+      --green-dark: #1B3B2D;
+      --green-mid: #2A5740;
+      --green-accent: #3A7D52;
+      --green-sage: #D6E4CC;
+      --green-sage-light: #E5EEDC;
+      --gold: #C5A449;
+      --gold-light: #D4B96A;
+      --gold-glow: #E0C97D;
+      --cream: #F2EDDF;
+      --cream-light: #F8F5EE;
+      --white: #FFFFFF;
+      --text-dark: #1A1A1A;
+      --text-body: #3D3D3D;
+      --text-light: #F2EDDF;
+      --font-heading: 'Montserrat', sans-serif;
+      --font-accent: 'Cormorant Garamond', serif;
+      --font-body: 'Montserrat', system-ui, sans-serif;
+    }
+
+    /* ============================================
+       RESET & BASE
+       ============================================ */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 70px; }
+    body {
+      font-family: var(--font-body);
+      color: var(--text-body);
+      line-height: 1.6;
+      font-size: 16px;
+      overflow-x: hidden;
+    }
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; transition: color 0.3s; }
+
+    /* ============================================
+       LEAF PATTERN OVERLAY (decorative)
+       ============================================ */
+    .leaf-overlay {
+      position: absolute;
+      pointer-events: none;
+      opacity: 0.35;
+      background: url('images/web/leaf-pattern.png') repeat;
+      background-size: 500px;
+      inset: 0;
+      z-index: 0;
+    }
+    .leaf-overlay--light { opacity: 0.5; }
+
+    /* ============================================
+       NAVIGATION
+       ============================================ */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      background: rgba(27, 59, 45, 0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(197, 164, 73, 0.15);
+      transition: background 0.3s;
+    }
+    .nav__inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.7rem 2rem;
+    }
+    .nav__logo { height: 45px; width: auto; }
+    .nav__links { list-style: none; display: flex; gap: 2.5rem; }
+    .nav__links a {
+      color: var(--cream);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .nav__links a:hover { color: var(--gold); }
+    .nav__toggle {
+      display: none; background: none; border: none;
+      color: var(--cream); font-size: 1.5rem; cursor: pointer;
+      padding: 0.5rem;
+    }
+
+    /* ============================================
+       BUTTONS
+       ============================================ */
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.85rem 2.2rem;
+      font-family: var(--font-heading);
+      font-weight: 700; font-size: 0.85rem;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      border-radius: 3px; border: none; cursor: pointer;
+      transition: all 0.3s;
+    }
+    .btn--gold {
+      background: var(--gold); color: var(--green-dark);
+    }
+    .btn--gold:hover { background: var(--gold-glow); transform: translateY(-2px); box-shadow: 0 8px 25px rgba(197,164,73,0.3); }
+    .btn--outline {
+      background: transparent; color: var(--cream);
+      border: 2px solid rgba(255,255,255,0.3);
+    }
+    .btn--outline:hover { border-color: var(--gold); color: var(--gold); }
+    .btn--whatsapp {
+      background: #25D366; color: #fff;
+      font-size: 1rem; padding: 1rem 2.5rem;
+      border-radius: 50px;
+    }
+    .btn--whatsapp:hover { background: #20BD5A; transform: translateY(-2px); box-shadow: 0 8px 25px rgba(37,211,102,0.3); }
+
+    /* ============================================
+       SECTION UTILITIES
+       ============================================ */
+    .section { position: relative; padding: 7rem 2rem; overflow: hidden; }
+    .section__container { max-width: 1100px; margin: 0 auto; position: relative; z-index: 1; }
+    .section-label {
+      font-family: var(--font-heading);
+      text-transform: uppercase; letter-spacing: 0.2em;
+      font-size: 0.75rem; font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+    .section-label--gold { color: var(--gold); }
+    .section-label--green { color: var(--green-accent); }
+    h2.section-title {
+      font-family: var(--font-heading);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800; line-height: 1.15;
+      margin-bottom: 1.5rem;
+    }
+
+    /* ============================================
+       HERO / INICIO
+       ============================================ */
+    .hero {
+      position: relative; min-height: 100vh;
+      display: flex; align-items: center;
+      background: var(--green-dark);
+    }
+    .hero__bg {
+      position: absolute; inset: 0;
+      background: url('images/web/hero-hallway.jpg') center/cover no-repeat;
+    }
+    .hero__bg::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(
+        135deg,
+        rgba(27,59,45,0.92) 0%,
+        rgba(27,59,45,0.7) 40%,
+        rgba(27,59,45,0.3) 70%,
+        rgba(0,0,0,0.2) 100%
+      );
+    }
+    .hero__content {
+      position: relative; z-index: 1;
+      max-width: 1100px; margin: 0 auto;
+      padding: 6rem 2rem 4rem;
+      color: var(--text-light);
+    }
+    .hero__logo { height: 280px; margin-bottom: 2.5rem; }
+    .hero__title {
+      font-family: var(--font-heading);
+      font-size: clamp(2.8rem, 6vw, 5rem);
+      font-weight: 900; line-height: 1.05;
+      margin-bottom: 0.5rem;
+    }
+    .hero__title em {
+      font-family: var(--font-accent);
+      font-style: italic; font-weight: 400;
+      color: var(--text-light);
+      font-size: 1.1em;
+    }
+    .hero__subtitle {
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      max-width: 650px;
+      margin-bottom: 0.5rem;
+      color: var(--gold-glow);
+      text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    }
+    .hero__subtitle strong { color: var(--gold-glow); font-weight: 700; }
+    .hero__tagline {
+      font-family: var(--font-accent);
+      font-style: italic; font-size: clamp(1.5rem, 2.8vw, 2.1rem);
+      font-weight: 500;
+      color: var(--gold-glow);
+      text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+      margin-bottom: 2.5rem;
+      max-width: 650px;
+    }
+    .hero__buttons { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    /* Instagram gallery */
+    .instagram-gallery {
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    .instagram-gallery__header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 1.2rem; flex-wrap: wrap; gap: 0.5rem;
+    }
+    .instagram-gallery__label {
+      font-size: 0.8rem; text-transform: uppercase;
+      letter-spacing: 0.15em; font-weight: 600;
+      color: rgba(255,255,255,0.5);
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .instagram-gallery__follow {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      color: var(--cream); font-size: 0.8rem; font-weight: 600;
+      letter-spacing: 0.05em;
+      padding: 0.4rem 1rem;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 6px;
+      transition: all 0.3s;
+    }
+    .instagram-gallery__follow:hover { border-color: var(--gold); color: var(--gold); }
+    .instagram-gallery__grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0.6rem;
+    }
+    .instagram-gallery__grid a {
+      display: block; position: relative;
+      border-radius: 8px; overflow: hidden;
+      aspect-ratio: 1;
+    }
+    .instagram-gallery__grid img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s;
+    }
+    .instagram-gallery__grid a:hover img { transform: scale(1.08); }
+    .instagram-gallery__grid a::after {
+      content: ''; position: absolute; inset: 0;
+      background: rgba(27,59,45,0.0);
+      transition: background 0.3s;
+    }
+    .instagram-gallery__grid a:hover::after {
+      background: rgba(27,59,45,0.2);
+    }
+
+    /* ============================================
+       NOSOTROS (combined "Quiénes Somos" + "Lo Que Hacemos")
+       ============================================ */
+    .nosotros { background: var(--cream-light); }
+
+    /* Quiénes Somos */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3.5rem; align-items: center;
+    }
+    .about-images {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+    }
+    .about-images img {
+      width: 100%; object-fit: cover;
+      border-radius: 8px;
+    }
+    .about-images img:first-child {
+      grid-column: 1 / -1;
+      height: 320px;
+    }
+    .about-images img:nth-child(2),
+    .about-images img:nth-child(3) { height: 180px; }
+    .about-text h2 { color: var(--green-dark); }
+    .about-text p { margin-bottom: 1rem; font-size: 1.05rem; }
+    .about-text p:first-of-type { font-weight: 600; color: var(--text-dark); }
+
+    /* Divider */
+    .section-divider {
+      width: 60px; height: 3px;
+      background: var(--gold);
+      margin: 5rem auto;
+      border-radius: 2px;
+    }
+
+    /* Lo Que Hacemos */
+    .hacemos-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3.5rem; align-items: start;
+    }
+    .hacemos-text h2 { color: var(--green-dark); }
+    .hacemos-text > p { font-weight: 700; font-size: 1.1rem; color: var(--green-dark); margin-bottom: 1.5rem; }
+    .diff-list { list-style: none; }
+    .diff-list li {
+      padding: 1rem 0 1rem 2.2rem;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      font-size: 1rem; position: relative;
+      color: var(--text-body);
+    }
+    .diff-list li::before {
+      content: ''; position: absolute; left: 0; top: 1.25rem;
+      width: 10px; height: 10px; border-radius: 50%;
+      background: var(--gold);
+    }
+    .hacemos-photos {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+    }
+    .hacemos-photos img {
+      width: 100%; border-radius: 8px;
+      object-fit: cover;
+    }
+    .hacemos-photos img:first-child {
+      grid-column: 1 / -1; height: 260px;
+    }
+    .hacemos-photos img:nth-child(2),
+    .hacemos-photos img:nth-child(3) { height: 180px; }
+    .tagline-bar {
+      margin-top: 3rem;
+      padding: 2rem 2.5rem;
+      background: var(--green-dark);
+      color: var(--gold-light);
+      border-radius: 6px;
+      font-family: var(--font-accent);
+      font-style: italic;
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      text-align: center;
+    }
+
+    /* ============================================
+       SERVICIOS
+       ============================================ */
+    .servicios { background: var(--white); }
+    .servicios h2 { color: var(--green-dark); }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem; margin-bottom: 4rem;
+    }
+    .service-card {
+      background: var(--cream-light);
+      border-radius: 10px;
+      padding: 2rem;
+      border-left: 4px solid var(--gold);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .service-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 35px rgba(0,0,0,0.08);
+    }
+    .service-card h3 {
+      font-family: var(--font-heading);
+      font-size: 1.05rem; font-weight: 700;
+      color: var(--green-dark);
+      margin-bottom: 0.5rem;
+    }
+    .service-card p {
+      font-size: 0.9rem; color: var(--text-body);
+      line-height: 1.5;
+    }
+
+    /* Benefits subsection */
+    .benefits-block {
+      background: var(--green-dark);
+      border-radius: 12px;
+      padding: 3.5rem;
+      color: var(--text-light);
+      position: relative; overflow: hidden;
+    }
+    .benefits-block .leaf-overlay { opacity: 0.15; }
+    .benefits-block h2 { color: var(--text-light); }
+    .benefits-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem; margin-top: 2rem;
+      list-style: none;
+    }
+    .benefits-list li {
+      display: flex; gap: 1rem;
+      align-items: flex-start;
+    }
+    .benefit-icon {
+      width: 40px; height: 40px; flex-shrink: 0;
+      border-radius: 50%;
+      background: rgba(197,164,73,0.15);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--gold); font-size: 1rem;
+    }
+    .benefit-text { font-size: 0.95rem; line-height: 1.5; }
+    .benefit-text strong { color: var(--gold-light); display: block; margin-bottom: 0.2rem; }
+
+    .repse-badge {
+      display: inline-flex; align-items: center;
+      gap: 1rem; margin-top: 2.5rem;
+      padding: 1rem 1.5rem;
+      background: rgba(255,255,255,0.12);
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+    .repse-badge img { height: 35px; filter: brightness(2) contrast(0.9); }
+    .repse-badge span { font-size: 0.85rem; opacity: 0.8; }
+
+    /* Gallery */
+    .services-gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem; margin-top: 3rem;
+    }
+    .services-gallery img {
+      width: 100%; height: 250px;
+      object-fit: cover; border-radius: 8px;
+    }
+
+    /* ============================================
+       CONTACTO
+       ============================================ */
+    .contacto {
+      background: var(--green-dark);
+      color: var(--text-light);
+    }
+    .contacto h2.section-title { color: var(--text-light); }
+
+    .contacto-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+    }
+
+    /* Process steps */
+    .process-steps { list-style: none; margin-bottom: 2.5rem; }
+    .process-steps li {
+      display: flex; gap: 1.2rem;
+      padding: 1.2rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      align-items: flex-start;
+    }
+    .step-num {
+      width: 36px; height: 36px; flex-shrink: 0;
+      border-radius: 50%;
+      background: var(--gold);
+      color: var(--green-dark);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 0.85rem;
+    }
+    .step-text { font-size: 0.95rem; color: rgba(255,255,255,0.85); }
+    .step-text strong { color: var(--gold-light); }
+
+    .whatsapp-block {
+      text-align: center;
+      padding: 2rem;
+      background: rgba(255,255,255,0.04);
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    .whatsapp-block p {
+      margin-bottom: 1.2rem;
+      font-family: var(--font-accent);
+      font-style: italic; font-size: 1.2rem;
+      color: var(--gold-light);
+    }
+    .whatsapp-number {
+      display: block; margin-top: 0.8rem;
+      font-family: var(--font-heading);
+      font-size: 1.3rem; color: var(--cream);
+      letter-spacing: 0.05em;
+    }
+
+    /* Contact form */
+    .contact-form h3 {
+      font-family: var(--font-heading);
+      font-weight: 700; font-size: 1.2rem;
+      margin-bottom: 1.5rem;
+    }
+    .form-group { margin-bottom: 1.2rem; }
+    .form-group label {
+      display: block; font-size: 0.8rem;
+      text-transform: uppercase; letter-spacing: 0.1em;
+      font-weight: 600; margin-bottom: 0.4rem;
+      color: rgba(255,255,255,0.5);
+    }
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 6px;
+      color: var(--cream);
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      transition: border-color 0.3s;
+    }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: rgba(255,255,255,0.25); }
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--gold);
+      background: rgba(255,255,255,0.08);
+    }
+    .form-group textarea { resize: vertical; min-height: 100px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-submit {
+      width: 100%; margin-top: 0.5rem;
+      padding: 1rem;
+      background: var(--gold);
+      color: var(--green-dark);
+      font-family: var(--font-heading);
+      font-weight: 700; font-size: 0.9rem;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      border: none; border-radius: 6px;
+      cursor: pointer; transition: all 0.3s;
+    }
+    .form-submit:hover { background: var(--gold-glow); }
+
+    .contact-footer {
+      text-align: center;
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .contact-footer img { height: 60px; margin: 0 auto 1rem; }
+    .contact-footer a { color: var(--gold-light); }
+    .contact-footer a:hover { color: var(--gold-glow); }
+    .contact-footer p { font-size: 0.85rem; opacity: 0.5; margin-top: 0.5rem; }
+
+    /* ============================================
+       FOOTER
+       ============================================ */
+    footer {
+      background: #111;
+      color: rgba(255,255,255,0.35);
+      text-align: center;
+      padding: 1.5rem 2rem;
+      font-size: 0.8rem;
+    }
+
+    /* ============================================
+       SVG ICONS (inline)
+       ============================================ */
+    .icon { width: 1em; height: 1em; fill: currentColor; vertical-align: middle; }
+
+    /* ============================================
+       RESPONSIVE
+       ============================================ */
+    @media (max-width: 900px) {
+      .nav__links { display: none; position: absolute; top: 100%; left: 0; right: 0; background: var(--green-dark); flex-direction: column; padding: 1.5rem 2rem; gap: 1.2rem; border-top: 1px solid rgba(255,255,255,0.1); }
+      .nav__links.open { display: flex; }
+      .nav__toggle { display: block; }
+      .about-grid,
+      .hacemos-grid,
+      .contacto-grid { grid-template-columns: 1fr; }
+      .about-grid { gap: 2rem; }
+      .about-images { order: -1; }
+      .about-images img:first-child { height: 250px; }
+      .benefits-list { grid-template-columns: 1fr; }
+      .benefits-block { padding: 2.5rem 2rem; }
+      .services-gallery { grid-template-columns: 1fr; }
+      .services-gallery img { height: 220px; }
+      .section { padding: 5rem 1.5rem; }
+      .hero__content { padding: 5rem 1.5rem 3rem; }
+      .hero__logo { height: 180px; }
+      .instagram-gallery__grid { grid-template-columns: repeat(3, 1fr); }
+      .form-row { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .about-images img:first-child { height: 200px; }
+      .about-images img:nth-child(2),
+      .about-images img:nth-child(3) { height: 140px; }
+      .hacemos-photos img:first-child { height: 200px; }
+      .hacemos-photos img:nth-child(2),
+      .hacemos-photos img:nth-child(3) { height: 140px; }
+      .services-grid { grid-template-columns: 1fr; }
+      .hero__title { font-size: 2.4rem; }
+      .hero__logo { height: 140px; }
+      .instagram-gallery__grid { grid-template-columns: repeat(3, 1fr); gap: 0.4rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ==========================================
+     NAVIGATION
+     ========================================== -->
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="#inicio"><img src="images/web/logo.png" alt="Mano Verde" class="nav__logo"></a>
+    <button class="nav__toggle" onclick="document.querySelector('.nav__links').classList.toggle('open')" aria-label="Menú">&#9776;</button>
+    <ul class="nav__links">
+      <li><a href="#inicio" onclick="this.closest('ul').classList.remove('open')">Inicio</a></li>
+      <li><a href="#nosotros" onclick="this.closest('ul').classList.remove('open')">Nosotros</a></li>
+      <li><a href="#servicios" onclick="this.closest('ul').classList.remove('open')">Servicios</a></li>
+      <li><a href="#contacto" onclick="this.closest('ul').classList.remove('open')">Contacto</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ==========================================
+     INICIO (Slide 1)
+     ========================================== -->
+<section class="hero" id="inicio">
+  <div class="hero__bg"></div>
+  <div class="hero__content">
+    <img src="images/web/logo.png" alt="Mano Verde" class="hero__logo">
+    <h1 class="hero__title">Decoración<br>Verde <em>con Propósito</em></h1>
+    <p class="hero__subtitle"><strong>Diseño, ejecución y mantenimiento.</strong></p>
+    <p class="hero__tagline">Transformamos tus espacios con naturaleza viva, estética y profesionalismo.</p>
+    <div class="hero__buttons">
+      <a href="#contacto" class="btn btn--gold">Contáctanos</a>
+      <a href="#nosotros" class="btn btn--outline">Conócenos</a>
+    </div>
+
+    <!-- Instagram Gallery -->
+    <div class="instagram-gallery">
+      <div class="instagram-gallery__header">
+        <span class="instagram-gallery__label">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+          @manoverde.mx
+        </span>
+        <a href="https://www.instagram.com/manoverde.mx/" target="_blank" rel="noopener" class="instagram-gallery__follow">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+          Seguir
+        </a>
+      </div>
+      <!--
+        ============================================================
+        INSTAGRAM FEED — Replace this grid with a real widget:
+        Option A: SnapWidget (snapwidget.com) — free, auto-updates
+        Option B: LightWidget (lightwidget.com) — free, auto-updates
+        Option C: Elfsight (elfsight.com) — free tier, 200 views/mo
+        Just paste the embed <iframe> or <script> tag here.
+        ============================================================
+        For now, using project photos as static preview:
+      -->
+      <div class="instagram-gallery__grid">
+        <a href="https://www.instagram.com/manoverde.mx/" target="_blank" rel="noopener"><img src="images/web/about-courtyard.jpg" alt="Mano Verde en Instagram" loading="lazy"></a>
+        <a href="https://www.instagram.com/manoverde.mx/" target="_blank" rel="noopener"><img src="images/web/work-landscape.jpg" alt="Mano Verde en Instagram" loading="lazy"></a>
+        <a href="https://www.instagram.com/manoverde.mx/" target="_blank" rel="noopener"><img src="images/web/services-indoor.jpg" alt="Mano Verde en Instagram" loading="lazy"></a>
+        <a href="https://www.instagram.com/manoverde.mx/" target="_blank" rel="noopener"><img src="images/web/work-matisse.jpg" alt="Mano Verde en Instagram" loading="lazy"></a>
+        <a href="https://www.instagram.com/manoverde.mx/" target="_blank" rel="noopener"><img src="images/web/services-outdoor.jpg" alt="Mano Verde en Instagram" loading="lazy"></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     NOSOTROS (Slides 2 + 3 combined)
+     ========================================== -->
+<section class="section nosotros" id="nosotros">
+  <div class="leaf-overlay leaf-overlay--light"></div>
+  <div class="section__container">
+
+    <!-- Quiénes Somos -->
+    <div class="about-grid">
+      <div class="about-images">
+        <img src="images/web/about-courtyard.jpg" alt="Diseño de espacios verdes en edificios" loading="lazy">
+        <img src="images/web/about-building.jpg" alt="Paisajismo en edificios corporativos" loading="lazy">
+        <img src="images/web/about-planters.jpg" alt="Macetas y jardineras" loading="lazy">
+      </div>
+      <div class="about-text">
+        <p class="section-label section-label--green">Nosotros</p>
+        <h2 class="section-title">Quiénes Somos</h2>
+        <p><strong>Mano Verde</strong> es un equipo de paisajismo especializado en instalación y mantenimiento de espacios verdes de oficinas, edificios, restaurantes y negocios.</p>
+        <p>Nos apasiona dar forma a los espacios verdes con seguimiento y asesoría a detalle para que siempre brindes la imagen profesional que necesitas.</p>
+      </div>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <!-- Lo Que Hacemos -->
+    <div class="hacemos-grid">
+      <div class="hacemos-text">
+        <p class="section-label section-label--green">Nosotros</p>
+        <h2 class="section-title">Lo Que Hacemos</h2>
+        <p>Nos diferenciamos por:</p>
+        <ul class="diff-list">
+          <li>Brindar asesoría desde el momento inicial y garantizar que los resultados perduren en el tiempo.</li>
+          <li>Instalar y mantener espacios mejorando su estética.</li>
+          <li>Cuidar tu presupuesto.</li>
+        </ul>
+      </div>
+      <div class="hacemos-photos">
+        <img src="images/web/work-landscape.jpg" alt="Paisajismo y diseño de jardines" loading="lazy">
+        <img src="images/web/work-greenwall.jpg" alt="Muros verdes verticales" loading="lazy">
+        <img src="images/web/work-matisse.jpg" alt="Decoración verde para restaurantes" loading="lazy">
+      </div>
+    </div>
+
+    <div class="tagline-bar">Decoración verde, con propósito.</div>
+
+  </div>
+</section>
+
+<!-- ==========================================
+     SERVICIOS (Slides 5 services + benefits)
+     ========================================== -->
+<section class="section servicios" id="servicios">
+  <div class="section__container">
+    <p class="section-label section-label--green">Lo que ofrecemos</p>
+    <h2 class="section-title" style="color: var(--green-dark);">Servicios</h2>
+
+    <div class="services-grid">
+      <div class="service-card">
+        <h3>Diseño y asesoría de espacios</h3>
+        <p>Creamos propuestas personalizadas que integran naturaleza viva con la identidad de tu espacio.</p>
+      </div>
+      <div class="service-card">
+        <h3>Instalación</h3>
+        <p>Ejecutamos cada proyecto con precisión, cuidando cada detalle desde la selección de plantas hasta su colocación final.</p>
+      </div>
+      <div class="service-card">
+        <h3>Mantenimiento anual de interiores</h3>
+        <p>Programas de cuidado continuo para que tus espacios verdes siempre luzcan impecables.</p>
+      </div>
+      <div class="service-card">
+        <h3>Jardinería y poda exteriores</h3>
+        <p>Mantenemos tus áreas verdes exteriores con podas, limpieza y tratamientos profesionales.</p>
+      </div>
+      <div class="service-card">
+        <h3>Macetas y plantas a precio justo</h3>
+        <p>Amplia variedad de macetas y plantas seleccionadas con la mejor relación calidad-precio.</p>
+      </div>
+    </div>
+
+    <!-- Benefits block -->
+    <div class="benefits-block">
+      <div class="leaf-overlay"></div>
+      <div style="position:relative; z-index:1;">
+        <p class="section-label section-label--gold">Ventajas</p>
+        <h2 class="section-title">¿Qué te llevas al trabajar con Mano Verde?</h2>
+        <ul class="benefits-list">
+          <li>
+            <div class="benefit-icon">&#10003;</div>
+            <div class="benefit-text">
+              <strong>Profesionalismo y contratos formales</strong>
+              Transparencia y formalidad en cada proyecto.
+            </div>
+          </li>
+          <li>
+            <div class="benefit-icon">&#10003;</div>
+            <div class="benefit-text">
+              <strong>Mantenimiento comprometido y puntual</strong>
+              Seguimiento constante para espacios impecables.
+            </div>
+          </li>
+          <li>
+            <div class="benefit-icon">&#10003;</div>
+            <div class="benefit-text">
+              <strong>Diseño natural y elegante</strong>
+              Que embellece sin complicaciones.
+            </div>
+          </li>
+          <li>
+            <div class="benefit-icon">&#10003;</div>
+            <div class="benefit-text">
+              <strong>Atención cercana y con seguimiento</strong>
+              Comunicación continua en cada etapa.
+            </div>
+          </li>
+        </ul>
+        <div class="repse-badge">
+          <img src="images/web/repse.png" alt="REPSE">
+          <span>Registrados ante REPSE</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Gallery strip -->
+    <div class="services-gallery">
+      <img src="images/web/services-aerial.jpg" alt="Vista aérea de proyecto paisajístico" loading="lazy">
+      <img src="images/web/services-indoor.jpg" alt="Instalación de plantas en interiores" loading="lazy">
+      <img src="images/web/services-outdoor.jpg" alt="Mantenimiento de áreas verdes" loading="lazy">
+    </div>
+
+  </div>
+</section>
+
+<!-- ==========================================
+     CONTACTO (Process + WhatsApp + Form)
+     ========================================== -->
+<section class="section contacto" id="contacto">
+  <div class="leaf-overlay"></div>
+  <div class="section__container">
+    <p class="section-label section-label--gold">Contacto</p>
+    <h2 class="section-title">¿Listo para transformar tu espacio?</h2>
+
+    <div class="contacto-grid">
+      <!-- Left: Process + WhatsApp -->
+      <div>
+        <ul class="process-steps">
+          <li>
+            <span class="step-num">1</span>
+            <span class="step-text"><strong>Agendar una cita</strong> para conocer el espacio, escuchar al cliente y entender necesidades.</span>
+          </li>
+          <li>
+            <span class="step-num">2</span>
+            <span class="step-text"><strong>Realizar un diagnóstico</strong> con paleta vegetal, requerimientos y plan de mantenimiento.</span>
+          </li>
+          <li>
+            <span class="step-num">3</span>
+            <span class="step-text"><strong>Establecer un presupuesto</strong> ajustado a las necesidades, con alcance de resultados claros.</span>
+          </li>
+          <li>
+            <span class="step-num">4</span>
+            <span class="step-text"><strong>Ejecución y mantenimiento</strong> con supervisión de paisajista y comunicación continua.</span>
+          </li>
+        </ul>
+
+        <div class="whatsapp-block">
+          <p>La naturaleza no sólo se ve, se siente.</p>
+          <a href="https://wa.me/525564761467" target="_blank" rel="noopener" class="btn btn--whatsapp">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Escríbenos por WhatsApp
+          </a>
+          <span class="whatsapp-number">55 6476 1467</span>
+        </div>
+      </div>
+
+      <!-- Right: Contact Form -->
+      <div class="contact-form">
+        <h3>Envíanos un mensaje</h3>
+        <!--
+          ============================================================
+          CONTACT FORM — Web3Forms (free, email hidden)
+          ============================================================
+          SETUP (one-time):
+          1. Go to https://web3forms.com
+          2. Enter: juanmanuelurenaperez@gmail.com
+          3. Check your inbox for the access key
+          4. Replace YOUR_ACCESS_KEY_HERE below with the real key
+          ============================================================
+        -->
+        <form action="https://api.web3forms.com/submit" method="POST">
+          <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
+          <input type="hidden" name="subject" value="Nuevo mensaje desde manoverde.mx">
+          <input type="hidden" name="from_name" value="Mano Verde Web">
+          <input type="hidden" name="redirect" value="https://web3forms.com/success">
+          <input type="checkbox" name="botcheck" style="display:none">
+
+          <div class="form-group">
+            <label for="nombre">Nombre</label>
+            <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="telefono">Teléfono</label>
+              <input type="tel" id="telefono" name="telefono" placeholder="55 1234 5678" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" placeholder="tu@email.com" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="mensaje">Mensaje</label>
+            <textarea id="mensaje" name="mensaje" placeholder="Cuéntanos sobre tu espacio y lo que necesitas..." required></textarea>
+          </div>
+          <button type="submit" class="form-submit">Enviar mensaje</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Footer info -->
+    <div class="contact-footer">
+      <img src="images/web/logo.png" alt="Mano Verde">
+      <a href="https://manoverde.mx" target="_blank">manoverde.mx</a>
+      <p>&copy; 2026 Mano Verde. Decoración verde, con propósito.</p>
+    </div>
+
+  </div>
+</section>
+
+</body>
+</html>
