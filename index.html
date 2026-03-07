@@ -162,6 +162,16 @@
       font-size: clamp(2rem, 4vw, 3rem);
       font-weight: 800; line-height: 1.15;
       margin-bottom: 1.5rem;
+      padding-bottom: 0.75rem;
+      position: relative;
+    }
+    h2.section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 40px; height: 2.5px;
+      background: var(--gold);
+      border-radius: 2px;
     }
 
     /* ============================================
@@ -209,10 +219,10 @@
       font-size: clamp(1.4rem, 3vw, 2rem);
       max-width: 650px;
       margin-bottom: 0.5rem;
-      color: var(--gold-glow);
+      color: rgba(255,255,255,0.95);
       text-shadow: 0 2px 8px rgba(0,0,0,0.4);
     }
-    .hero__subtitle strong { color: var(--gold-glow); font-weight: 700; }
+    .hero__subtitle strong { color: #fff; font-weight: 700; }
     .hero__tagline {
       font-family: var(--font-accent);
       font-style: italic; font-size: clamp(1.5rem, 2.8vw, 2.1rem);
@@ -420,6 +430,13 @@
       transform: translateY(-4px);
       box-shadow: 0 12px 35px rgba(0,0,0,0.08), 0 0 0 1px rgba(197,164,73,0.15);
     }
+    .service-card__icon {
+      display: block;
+      font-size: 1.5rem;
+      margin-bottom: 0.6rem;
+      color: var(--gold);
+      line-height: 1;
+    }
     .service-card h3 {
       font-family: var(--font-heading);
       font-size: 1.05rem; font-weight: 700;
@@ -441,6 +458,7 @@
     }
     .benefits-block .leaf-overlay { opacity: 0.15; }
     .benefits-block h2 { color: var(--text-light); }
+    .benefits-block h2::after { background: var(--gold-light); }
     .benefits-list {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -474,7 +492,7 @@
       border-radius: 8px;
       border: 1px solid rgba(255,255,255,0.15);
     }
-    .repse-badge img { height: 35px; filter: brightness(2) contrast(0.9); }
+    .repse-badge img { height: 40px; filter: invert(1) brightness(0.85) hue-rotate(180deg); }
     .repse-badge span { font-size: 0.85rem; opacity: 0.8; }
 
     /* Gallery */
@@ -501,6 +519,7 @@
       color: var(--text-light);
     }
     .contacto h2.section-title { color: var(--text-light); }
+    .contacto h2.section-title::after { background: var(--gold-light); }
 
     .contacto-grid {
       display: grid;
@@ -789,7 +808,7 @@
       <div class="about-text reveal reveal-delay-1">
         <p class="section-label section-label--green">Nosotros</p>
         <h2 class="section-title">Quiénes Somos</h2>
-        <p><strong>Mano Verde</strong> es un equipo de paisajismo especializado en instalación y mantenimiento de espacios verdes de oficinas, edificios, restaurantes y negocios.</p>
+        <p><strong style="color: var(--green-dark); font-size: 1.15em;">Mano Verde</strong> es un equipo de paisajismo especializado en instalación y mantenimiento de espacios verdes de oficinas, edificios, restaurantes y negocios.</p>
         <p>Nos apasiona dar forma a los espacios verdes con seguimiento y asesoría a detalle para que siempre brindes la imagen profesional que necesitas.</p>
       </div>
     </div>
@@ -830,22 +849,27 @@
 
     <div class="services-grid">
       <div class="service-card reveal">
+        <span class="service-card__icon">&#9998;</span>
         <h3>Diseño y asesoría de espacios</h3>
         <p>Creamos propuestas personalizadas que integran naturaleza viva con la identidad de tu espacio.</p>
       </div>
       <div class="service-card reveal reveal-delay-1">
+        <span class="service-card__icon">&#9881;</span>
         <h3>Instalación</h3>
         <p>Ejecutamos cada proyecto con precisión, cuidando cada detalle desde la selección de plantas hasta su colocación final.</p>
       </div>
       <div class="service-card reveal reveal-delay-2">
+        <span class="service-card__icon">&#10047;</span>
         <h3>Mantenimiento anual de interiores</h3>
         <p>Programas de cuidado continuo para que tus espacios verdes siempre luzcan impecables.</p>
       </div>
       <div class="service-card reveal reveal-delay-3">
+        <span class="service-card__icon">&#9752;</span>
         <h3>Jardinería y poda exteriores</h3>
         <p>Mantenemos tus áreas verdes exteriores con podas, limpieza y tratamientos profesionales.</p>
       </div>
       <div class="service-card reveal reveal-delay-4">
+        <span class="service-card__icon">&#10048;</span>
         <h3>Macetas y plantas a precio justo</h3>
         <p>Amplia variedad de macetas y plantas seleccionadas con la mejor relación calidad-precio.</p>
       </div>
@@ -888,7 +912,7 @@
           </li>
         </ul>
         <div class="repse-badge">
-          <img src="images/web/repse.png" alt="REPSE">
+          <img src="images/web/repse.png?v=2" alt="REPSE">
           <span>Registrados ante REPSE</span>
         </div>
       </div>
